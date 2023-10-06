@@ -65,8 +65,3 @@ npm run start:dev
 ```
 npm run start
 ```
-
-## Documentation:
-
-Use insomnia to inport the file bellow:
-https://github.com/Carlos-Monteiro26/wallet-app-backend/blob/main/Insomnia.json
