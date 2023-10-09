@@ -72,7 +72,30 @@ router.put("/", async (req, res) => {
     }
 
     return res.status(200).json(updateResponse.rows[0]);
-  } catch (error) {}
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+});
+
+router.get("/", async (req, res) => {
+  try {
+    const { email } = req.query;
+
+    if (email.length < 5 || !email.includes("@")) {
+      return res.status(400).json({ error: "E-mail is invalid." });
+    }
+
+    const query = usersQueries.findByEmail(email);
+    const userExists = await db.query(query);
+
+    if (!userExists.rows[0]) {
+      return res.status(403).json({ error: "user does not exits." });
+    }
+
+    return res.status(200).json(userExists.rows[0]);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
 });
 
 module.exports = router;
